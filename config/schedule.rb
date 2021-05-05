@@ -1,3 +1,4 @@
+env :PATH, ENV['PATH']
 rails_env = ENV['RAILS_ENV'] || :development
 set :environment, rails_env
 # ENV.each { |k, v| env(k, v) }
