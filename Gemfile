@@ -56,6 +56,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano3-puma'
+  gem 'rubocop', require: false
 end
 
 group :test do
