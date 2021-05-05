@@ -13,6 +13,7 @@ set :yarn_flags, "--production --check-files"
 set :linked_files, %w[config/master.key config/credentials.yml.enc config/database.yml]
 set :linked_dirs, %w[log tmp/pids tmp/cache tmp/sockets vendor/bundle public/uploads public/communities node_modules]
 
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 # set :prune_bundler, true
 # set :puma_state, "#{shared_path}/tmp/pids/puma.state"
 # set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
