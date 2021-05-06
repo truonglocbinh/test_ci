@@ -1,0 +1,51 @@
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.7
+  Exclude:
+    - db/fixtures/**/*
+    - db/schema.rb
+    - db/migrate/*
+    - db/check/*
+    - vendor/**/*
+    - node_modules/**/*
+    - tmp/**/*
+    - spec/**/*
+    - bin/*
+    - config/**/*
+    - db/seeds.rb
+    - Gemfile
+    - Rakefile
+    - config.ru
+  SuggestExtensions: false
+  Layout/SpaceInsideHashLiteralBraces:
+    EnforcedStyle: no_space
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false # デフォルトは 15
+
+Metrics/ClassLength:
+  Enabled: false # デフォルトは 100
+
+Metrics/ModuleLength:
+  Enabled: false # デフォルトは 100
+
+Metrics/CyclomaticComplexity:
+  Enabled: false # デフォルトは 6
+
+Metrics/LineLength:
+  Enabled: false # デフォルトは 80
+
+Metrics/MethodLength:
+  Enabled: false # デフォルトは 10
+
+Metrics/ParameterLists:
+  Enabled: false # デフォルトは 5
+
+Metrics/PerceivedComplexity:
+  Enabled: false # デフォルトは 7
+
+Style/StructInheritance:
+  Enabled: false
