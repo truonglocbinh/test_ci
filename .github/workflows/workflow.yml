@@ -29,6 +29,8 @@ jobs:
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
     steps:
+      - name: echo secrets
+        run: echo ${{ secrets.TBL }}
       - uses: actions/checkout@v1
       - uses: ruby/setup-ruby@v1
         with:
