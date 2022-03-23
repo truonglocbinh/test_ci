@@ -11,6 +11,9 @@ jobs:
     name: Run rubocop with reviewdog
     runs-on: ubuntu-latest
     steps:
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.3
       - name: Run rubocop with reviewdog
         uses: reviewdog/action-rubocop@v1
   rspec-test:
