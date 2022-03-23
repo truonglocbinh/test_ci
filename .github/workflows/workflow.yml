@@ -9,7 +9,10 @@ on: [push,pull_request]
 jobs:
   rubocop-test:
     name: Run rubocop with reviewdog
-    uses: reviewdog/action-rubocop@v1
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Run rubocop with reviewdog
+        uses: reviewdog/action-rubocop@v1
   rspec-test:
     name: RSpec
     needs: rubocop-test
