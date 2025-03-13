@@ -5,6 +5,8 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
+    Book.new(title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', publication_year: 1925).save
+    Book.new(title: 'To Kill a Mockingbird', author: 'Harper Lee', publication_year: 1960).save
     @books = Book.page params[:page]
   end
 
