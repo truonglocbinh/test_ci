@@ -1,55 +1,24 @@
-env:
-  RUBY_VERSION: 2.7.3
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: postgres
-
-name: Rails tests
-on: [push,pull_request]
+name: PR-Agent
+on:
+  pull_request:
+  issue_comment:
 jobs:
-  rubocop-test:
-    name: Run rubocop with reviewdog
+  pr_agent_job:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+    name: Run pr agent on every pull request, respond to user comments
     steps:
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.3
-      - name: Run rubocop with reviewdog
-        uses: reviewdog/action-rubocop@v1
-  rspec-test:
-    name: RSpec
-    needs: rubocop-test
-    runs-on: ubuntu-18.04
-    services:
-      postgres:
-        image: postgres:latest
-        ports:
-        - 5432:5432
+      - name: PR Agent action step
+        id: pragent
+        uses: Codium-ai/pr-agent@main
         env:
-          POSTGRES_USER: ${{ env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-    steps:
-      - name: echo secrets
-        run: echo ${{ secrets.TBL }}
-      - uses: actions/checkout@v1
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-      - name: Install postgres client
-        run: sudo apt-get install libpq-dev
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundler install
-      - name: Create database
-        run: |
-          bundler exec rails db:create RAILS_ENV=test
-          bundler exec rails db:migrate RAILS_ENV=test
-      - name: Run tests
-        run: bundler exec rake
-      - name: Upload coverage results    
-        uses: actions/upload-artifact@master
-        if: always()
-        with:
-          name: coverage-report
-          path: coverage
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          OPENAI.ORG: "org-UruHUDpu0WlYRO1rPBdJ2BZl"
+          PR_REVIEWER.EXTRA_INSTRUCTIONS: 'Please use English in descriptions.'
+          PR_DESCRIPTION.EXTRA_INSTRUCTIONS: 'Please use English in descriptions. Titles should have prefix of commitlint pattern such as `feat:`, `chore:`, `test:`, `fix:`, `ci:`, `docs:` etc'
+          PR_CODE_SUGGESTIONS.EXTRA_INSTRUCTIONS: 'Please use English in descriptions.'
+          PR_DESCRIPTION.ADD_ORIGINAL_USER_DESCRIPTION: true
